@@ -1,7 +1,6 @@
 const router = require('express').Router()
-const db = require('../db/db')
-const Plant = db.model('plant')
-const User = db.model('user')
+
+const {User, Plant} = require('../db/models/')
 
 router.get('/', async (req, res, next) => {
   try {
@@ -25,12 +24,17 @@ router.get('/:plantId', async (req, res, next) => {
   }
 })
 
-router.get(':/userId', async (req, res, next) => {
+router.post('/:userId', async (req, res, next) => {
   try {
-    const response = await User.findByPk(req.params.userId, {
-      include: [{model: Plant}]
+    const user = await User.findByPk(req.params.userId)
+    const newPlant = await Plant.create(req.body)
+    await newPlant.setUser(user)
+
+    const response = await Plant.findByPk(newPlant.id, {
+      include: [{model: User}]
     })
-    res.json(response)
+
+    res.status(201).json(response)
   } catch (error) {
     next(error)
   }

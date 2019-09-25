@@ -9,6 +9,11 @@ const Plant = db.define('plant', {
       notEmpty: true
     }
   },
+  imageURL: {
+    type: Sequelize.STRING,
+    defaultValue:
+      'https://www.pngtube.com/myfile/detail/31-313903_cactus-art-tumblr-cactus-tumbler-transparent-pineapple-plant.png'
+  },
   sunlight: {
     type: Sequelize.STRING,
     allowNull: false,
