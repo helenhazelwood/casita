@@ -40,4 +40,17 @@ router.post('/:userId', async (req, res, next) => {
   }
 })
 
+router.delete('/:plantId', async (req, res, next) => {
+  try {
+    await Plant.destroy({
+      where: {
+        id: req.params.plantId
+      }
+    })
+    res.send('Plant deleted')
+  } catch (error) {
+    next(error)
+  }
+})
+
 module.exports = router
