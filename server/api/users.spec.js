@@ -77,5 +77,31 @@ describe('User routes', () => {
       expect(res.body.id).to.deep.equal(testPlant2.id)
       expect(res.body.user.id).to.deep.equal(testUser.id)
     })
+    it(`DELETE /:userId/plants deletes all of a user's plants`, async () => {
+      await testPlant2.setUser(testUser)
+      const res = await request(app)
+        .delete(`/api/users/${testUser.id}/plants`)
+        .expect(200)
+      const search = await User.findByPk(testUser.id, {
+        include: [{model: Plant}]
+      })
+
+      expect(res.text).to.deep.equal(`User's plants deleted`)
+      expect(search.plants.length).to.be.equal(0)
+    })
+    it('DELETE /:userId deletes a user', async () => {
+      const res = await request(app)
+        .delete(`/api/users/${testUser.id}`)
+        .expect(200)
+      const plantSearch = await Plant.findAll({
+        where: {
+          userId: testUser.id
+        }
+      })
+      const userSearch = await User.findByPk(testUser.id)
+      expect(res.text).to.deep.equal('User deleted')
+      expect(plantSearch.length).to.be.equal(0)
+      expect(userSearch).to.be.equal(null)
+    })
   }) //end describe('Single User Routes')
 }) // end describe('User routes')

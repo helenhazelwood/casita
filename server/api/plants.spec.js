@@ -90,5 +90,21 @@ describe('Plant routes', () => {
       expect(res.body.name).to.deep.equal('Pothos')
       expect(res.body.user.id).to.deep.equal(testUser2.id)
     })
+  }) //end describe POST routes
+  describe('DELETE route', () => {
+    it('Deletes a plant based on id', async () => {
+      let plant = await Plant.create({
+        name: 'Pothos',
+        sunlight: 'indirect',
+        soil: 'dense',
+        temperature: [65, 80],
+        humidity: 'medium'
+      })
+      const res = await request(app)
+        .delete(`/api/plants/${plant.id}`)
+        .expect(200)
+
+      expect(res.text).to.deep.equal('Plant deleted')
+    })
   })
 })

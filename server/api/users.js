@@ -45,3 +45,35 @@ router.get('/:userId/plants/:plantId', async (req, res, next) => {
     next(error)
   }
 })
+
+router.delete('/:userId/plants/', async (req, res, next) => {
+  try {
+    await Plant.destroy({
+      where: {
+        userId: req.params.userId
+      }
+    })
+    res.send(`User's plants deleted`)
+  } catch (error) {
+    next(error)
+  }
+})
+
+router.delete('/:userId', async (req, res, next) => {
+  try {
+    await User.destroy({
+      where: {
+        id: req.params.userId
+      }
+    })
+
+    await Plant.destroy({
+      where: {
+        userId: req.params.userId
+      }
+    })
+    res.send('User deleted')
+  } catch (error) {
+    next(error)
+  }
+})
