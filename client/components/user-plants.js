@@ -16,17 +16,15 @@ class UserPlants extends React.Component {
   }
 
   render() {
-  
-
     return (
       <div>
         {!this.props.plants.length ? (
           <NoPlants />
-
         ) : (
           <div className="user-plants">
-
-            {this.props.plants.map(plant => <PlantItem plant={plant} key={plant.id} />)}
+            {this.props.plants.map(plant => (
+              <PlantItem plant={plant} key={plant.id} />
+            ))}
           </div>
         )}
       </div>

@@ -7,7 +7,7 @@ import UserPlants from './user-plants'
  * COMPONENT
  */
 export const UserHome = props => {
-  const {email, id} = props
+  const {email} = props
 
   return (
     <div>
