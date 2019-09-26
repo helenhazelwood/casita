@@ -26,8 +26,10 @@ router.get('/:userId', async (req, res, next) => {
 })
 router.get('/:userId/plants', async (req, res, next) => {
   try {
-    const response = await User.findByPk(req.params.userId, {
-      include: [{model: Plant}]
+    const response = await Plant.findAll({
+      where: {
+        userId: req.params.userId
+      }
     })
     res.json(response)
   } catch (error) {

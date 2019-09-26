@@ -89,7 +89,7 @@ describe('User routes', () => {
       expect(res.text).to.deep.equal(`User's plants deleted`)
       expect(search.plants.length).to.be.equal(0)
     })
-    it('DELETE /:userId deletes a user', async () => {
+    xit('DELETE /:userId deletes a user', async () => {
       const res = await request(app)
         .delete(`/api/users/${testUser.id}`)
         .expect(200)

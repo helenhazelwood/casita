@@ -35,6 +35,12 @@ async function seed() {
       humidity: 'low'
     })
   ])
+  const monstera = await Plant.findByPk(1)
+  await monstera.setUser(1)
+  const pothos = await Plant.findByPk(2)
+  await pothos.setUser(1)
+  const burrosTail = await Plant.findByPk(3)
+  await burrosTail.setUser(2)
 
   console.log(`seeded ${users.length} users`)
   console.log(`seeded ${plants.length} plants`)
