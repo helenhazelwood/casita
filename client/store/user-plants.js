@@ -14,7 +14,8 @@ const gotPlants = plants => ({type: GOT_PLANTS, plants})
 
 export const getPlants = userId => async dispatch => {
   try {
-    const {data} = await Axios.get(`/api/${userId}/plants`)
+    const {data} = await Axios.get(`/api/users/${userId}/plants`)
+
     dispatch(gotPlants(data))
   } catch (error) {
     console.error(error)
@@ -22,13 +23,13 @@ export const getPlants = userId => async dispatch => {
 }
 
 //REDUCER
-const userPlants = (state = defaultState, action) => {
+const userPlantsReducer = (state = defaultState, action) => {
   switch (action.type) {
     case GOT_PLANTS:
-      return {...state, plants: action.plants}
+      return [...action.plants]
     default:
       return state
   }
 }
 
-export default userPlants
+export default userPlantsReducer
