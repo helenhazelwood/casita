@@ -1,4 +1,6 @@
 import React from 'react'
+import {connect} from 'react-redux'
+import {identifyNewPlant} from '../store/identify'
 
 class Identify extends React.Component {
   constructor(props) {
@@ -14,6 +16,8 @@ class Identify extends React.Component {
       /^data:image\/[a-z]+;base64,/,
       ''
     )
+    this.props.history.push('/identify/result')
+    this.props.identifyNewPlant(dataURL)
   }
   handleImageChange(event) {
     event.preventDefault()
@@ -33,7 +37,7 @@ class Identify extends React.Component {
     if (imagePreviewURL) {
       $imagePreview = <img src={imagePreviewURL} />
     } else {
-      $imagePreview = <p>Please Select An Image for Preview</p>
+      $imagePreview = <p>Select an Image</p>
     }
 
     return (
@@ -46,9 +50,20 @@ class Identify extends React.Component {
           />
         </form>
         <div className="image-preview">{$imagePreview}</div>
+        <button
+          type="submit"
+          onClick={this.handleSubmit}
+          disabled={this.state.file.length < 1}
+        >
+          Identify!
+        </button>
       </div>
     )
   }
 }
 
-export default Identify
+const mapDispatch = dispatch => ({
+  identifyNewPlant: dataURL => dispatch(identifyNewPlant(dataURL))
+})
+
+export default connect(null, mapDispatch)(Identify)
