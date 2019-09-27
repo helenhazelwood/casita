@@ -6,7 +6,7 @@ const PlantItem = props => {
 
   return (
     <div className="item-container">
-      <Link to={`/${plant.id}`}>{plant.name}</Link>
+      <Link to={`/plants/${plant.id}`}>{plant.name}</Link>
       <div>
         <img src={plant.imageURL} />
       </div>
