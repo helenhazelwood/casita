@@ -1,33 +1,24 @@
 import React from 'react'
 
-class IdentifyForm extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      user: this.props.user,
-      plant: {
-        userId: this.user.id
-      }
-    }
-  }
-  handleSubmit() {}
+const IdentifyForm = props => {
+  const {plant} = props
+  const {handleSubmit} = props
+  const {readImage} = props
 
-  handleChange(event) {}
-
-  render() {
-    return (
-      <div className="form">
-        <h2>Identify a new plant</h2>
-        <form onSubmit={this.handleSubmit}>
-          <label htmlFor="image">Upload Plant Image:</label>
-          <input
-            type="file"
-            name="image"
-            value={this.state.plant.image}
-            onChange={this.handleChange}
-          />
-        </form>
-      </div>
-    )
-  }
+  return (
+    <div className="form">
+      <h2>Identify a new plant</h2>
+      <form onSubmit={handleSubmit}>
+        <label htmlFor="image">Upload Plant Image:</label>
+        <input
+          type="file"
+          name="image"
+          value={plant.imageDataURL}
+          onChange={readImage}
+        />
+      </form>
+    </div>
+  )
 }
+
+export default IdentifyForm
