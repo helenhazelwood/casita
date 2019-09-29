@@ -31,6 +31,7 @@ router.get('/:userId/plants', async (req, res, next) => {
         userId: req.params.userId
       }
     })
+
     res.json(response)
   } catch (error) {
     next(error)
