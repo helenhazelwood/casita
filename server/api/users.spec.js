@@ -65,8 +65,9 @@ describe('User routes', () => {
       const res = await request(app)
         .get(`/api/users/${testUser.id}/plants`)
         .expect(200)
-      expect(res.body.id).to.deep.equal(testUser.id)
-      expect(res.body.plants.length).to.be.equal(1)
+
+      expect(res.body[0].id).to.deep.equal(testPlant.id)
+      expect(res.body[0].userId).to.deep.equal(testUser.id)
     })
     it(`GET /:userId/plants/:plantId serves a single one of a user's plants, and eagerly loads that user`, async () => {
       await testPlant2.setUser(testUser)
