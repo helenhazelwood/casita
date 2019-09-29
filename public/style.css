@@ -1,18 +1,60 @@
+/*COLORS
+turtle green: #90915B
+lemon meringue: #F9E7BD
+artichoke: #928C6F
+pullman green: #423B0B
+darksienna: #3A2215
+*/
+
 body {
-  font-family: sans-serif;
+  font-family: 'Lora', serif;
+  display: flex;
+  margin-top: 0px;
 }
 
 a {
   text-decoration: none;
 }
 
+#app {
+  width: 100%;
+}
 label {
   display: block;
 }
 
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  background-color: #423b0b;
+  color: #f9e7bd;
+  border-radius: 0px 0px 10px 10px;
+  top: -20px;
+}
+
+nav {
+  display: flex;
+  align-items: flex-end;
+}
 nav a {
-  display: inline-block;
+  /* display: inline-block; */
   margin: 1em;
+  color: #f9e7bd;
+  font-style: italic;
+}
+
+nav a:hover {
+  font-style: normal;
+}
+
+.navbar h1 {
+  font-family: 'Lora', serif;
+  margin: 0.5em;
+}
+
+nav div {
+  display: flex;
 }
 
 form div {

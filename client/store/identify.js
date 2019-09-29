@@ -1,21 +1,21 @@
 import Axios from 'axios'
 
 const defaultState = {
-  plant: {}
+  plant: ''
 }
 
 //ACTION_TYPES
 const IDENTIFIED_PLANT = 'IDENTIFIED_PLANT'
 
 //ACTION CREATORS
-const identifiedPlant = plant => ({type: IDENTIFIED_PLANT, plant})
+const identifiedNewPlant = plant => ({type: IDENTIFIED_PLANT, plant})
 
 //THUNK CREATORS
 
-export const identifyNewPlant = plantURL => async dispatch => {
+export const identifyNewPlant = dataURL => async dispatch => {
   try {
-    const {data} = await Axios.post(`/api/identify?data=${plantURL}`)
-    dispatch(identifiedPlant(data))
+    const {data} = await Axios.post(`/api/identify?data=${dataURL}`)
+    dispatch(identifiedNewPlant(data))
   } catch (error) {
     console.log(error)
   }
