@@ -12,12 +12,9 @@ class Identify extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault()
-    let dataURL = this.state.imagePreviewURL.replace(
-      /^data:image\/[a-z]+;base64,/,
-      ''
-    )
+    let file = this.state.file
     this.props.history.push('/identify/result')
-    this.props.identifyNewPlant(dataURL)
+    this.props.identifyNewPlant(file)
   }
   handleImageChange(event) {
     event.preventDefault()
