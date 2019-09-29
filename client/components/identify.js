@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {identifyNewPlant} from '../store/identify'
+import {requestIdentification} from '../store/identify'
 
 class Identify extends React.Component {
   constructor(props) {
@@ -14,7 +14,7 @@ class Identify extends React.Component {
     event.preventDefault()
     let file = this.state.file
     this.props.history.push('/identify/result')
-    this.props.identifyNewPlant(file)
+    this.props.requestIdentification(file)
   }
   handleImageChange(event) {
     event.preventDefault()
@@ -60,7 +60,7 @@ class Identify extends React.Component {
 }
 
 const mapDispatch = dispatch => ({
-  identifyNewPlant: dataURL => dispatch(identifyNewPlant(dataURL))
+  requestIdentification: file => dispatch(requestIdentification(file))
 })
 
 export default connect(null, mapDispatch)(Identify)
