@@ -8,25 +8,22 @@ const defaultState = {
 const IDENTIFIED_PLANT = 'IDENTIFIED_PLANT'
 
 //ACTION CREATORS
-const identifiedNewPlant = plant => ({type: IDENTIFIED_PLANT, plant})
+const requestedIdentification = plant => ({type: IDENTIFIED_PLANT, plant})
 
 //THUNK CREATORS
 
-export const identifyNewPlant = file => async dispatch => {
+export const requestIdentification = file => async dispatch => {
   try {
-    console.log('THUNK FILE', file)
     const data = new FormData()
     data.append('file', file, 'plantImage')
-    for (let value of data.values()) {
-      console.log('THUNK DATA', value)
-    }
-    const {response} = await Axios.post(`/api/identify`, data, {
+    const response = await Axios.post(`/api/identify`, data, {
       headers: {
         'Content-Type': `multipart/form-data; boundary=${data.boundary}`
       },
       timout: 30000
     })
-    dispatch(identifiedNewPlant(response))
+    console.log('THUNK RESPONSE', response.data)
+    dispatch(requestedIdentification(response))
   } catch (error) {
     console.log(error)
   }
