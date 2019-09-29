@@ -15,14 +15,16 @@ install:
 before_script:
   - psql -c 'create database "stackathon-test";' -U postgres # remember to change this name if you change it elsewhere (e.g. package.json)
 script:
-  - npm test             # test the code
+  - npm test # test the code
   - npm run build-client # make the bundle
-
-# before_deploy:
-#   - rm -rf node_modules # omit from the tarball, since we skip cleanup
-# deploy:
-#   skip_cleanup: true # prevents travis from deleting the build
-#   provider: heroku
-#   app: YOUR-HEROKU-APP-NAME-HERE # see README
-#   api_key:
-#     secure: YOUR-***ENCRYPTED***-API-KEY-HERE # see README
+before_deploy: # omit node_modules, since we set skip_cleanup below
+  - rm -rf node_modules
+deploy: # see README for details on these keys
+  # prevents travis from deleting the build
+  skip_cleanup: true
+  provider: heroku
+  # app should be your heroku app name; see README
+  app: casita
+  # the secure key indicates an encrypted value; see README
+  api_key:
+    secure: zKWcl7Pzc5JBMd/Z6QwzgyTrYCXo3UI2/80qxaKKWUIZIdiQNiWDToyyJQcBFGsr5ajoqxbdcHYuoPA0lzI9UdBUCc8Zqm4SGuG+9lNBK7AjOePgMk3AOSexMp8HOrpsX0H68WZ+Pl+ZeXTr9bFf7X1/3fLtqRBgusfL3fwdOdYmOUuf6G8nj2vqjrl0ZkqGUTtm/GWhI2U9wlK4VvGAI5lqSTAfUxgDWJlGRA2YabNJPJeNvShSx5AqwkYdcXFJo0BALu+hfULgZ1wTPu5+54ICOV3r4sRFc3CUMh6f2/TPcaAVPNi6CuqEPNcoYmJR4CRljraQRAhUmyjt/D/y/jYB8K0yCCgNlSQ4yeBASxlwtU42YROkYuMrZzOgkjg5g+Y9OWcfyeKkwmT5JLc9dRPS0YiiXHhv5QbVdyRGG6WQ74RZGKW+BW8SYSFYQOnzGq2XwzBB+wIilzAOcwDF9zbBhPPcqHxCdrsBlsK8F/8aBusE8aETMclNu0R++d5ehIn6rSFJVz5INHgcQ5GhxQDNbfCesbKlZg6YHMuAdLmP+BtIZCOIBMSi/HBxIl3czk1DHQwynhU/GiSI4/h6sGL0Nb4r0GQ8IHwTxaLXInyz1ZyzJEQY5Sl5QiB3POriN137zxWvfoFmX3wq0Wf2LvwzFoO4GJGt8J5Fx6kamhk=
