@@ -23,7 +23,7 @@ export const requestIdentification = file => async dispatch => {
       },
       timout: 30000
     })
-    console.log('THUNK RESPONSE', response.data)
+    await Axios.post(`${response.data}`, 'JSON place holder')
     dispatch(requestedIdentification(response))
   } catch (error) {
     console.log(error)
