@@ -6,10 +6,10 @@ const defaultState = {
 }
 
 //ACTION_TYPES
-const REQUESTED_IDENTIFICAITON = 'REQUESTED_IDENTIFICATION'
+const REQUESTED_IDENTIFICATION = 'REQUESTED_IDENTIFICATION'
 
 //ACTION CREATORS
-const requestedIdentification = url => ({type: IDENTIFIED_PLANT, url})
+const requestedIdentification = url => ({type: REQUESTED_IDENTIFICATION, url})
 
 //THUNK CREATORS
 
@@ -33,7 +33,7 @@ export const requestIdentification = file => async dispatch => {
 //REDUCER
 const identifyReducer = (state = defaultState, action) => {
   switch (action.type) {
-    case REQUESTED_IDENTIFICAITON:
+    case REQUESTED_IDENTIFICATION:
       return {...state, URL: action.url}
     default:
       return state
