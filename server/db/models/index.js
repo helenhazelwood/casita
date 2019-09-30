@@ -1,5 +1,6 @@
 const User = require('./user')
 const Plant = require('./plant')
+const Identification = require('./identification')
 
 /**
  * If we had any associations to make, this would be a great place to put them!
@@ -17,5 +18,6 @@ User.hasMany(Plant)
  */
 module.exports = {
   User,
-  Plant
+  Plant,
+  Identification
 }
