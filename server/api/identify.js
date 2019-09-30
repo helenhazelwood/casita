@@ -2,6 +2,7 @@
 const router = require('express').Router()
 const request = require('request')
 const {key, generateUUID} = require('../../public/util')
+const {Identification} = require('../db/models')
 
 router.post('/', (req, res, next) => {
   try {
@@ -33,9 +34,38 @@ router.post('/', (req, res, next) => {
   }
 })
 
-// router.get('/result/:customId', async (req, res, next) => {
-//   try {
-//   } catch (error) {}
-// })
+router.post('/result/:customId', async (req, res, next) => {
+  try {
+    await Identification.create({
+      json: req.body,
+      endpoint: req.params.customId
+    })
+    res.json(req.body)
+  } catch (error) {
+    next(error)
+  }
+})
+
+router.get('/result/:customId', async (req, res, next) => {
+  try {
+    let finished = false
+    let i = 0
+    while (!finished && i < 100) {
+      let search = await Identification.findAll({
+        where: {
+          endpoint: req.params.customId
+        }
+      })
+      if (search.json !== null) {
+        res.json(search)
+        finished = true
+      } else {
+        i++
+      }
+    }
+  } catch (error) {
+    next(error)
+  }
+})
 
 module.exports = router
