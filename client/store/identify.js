@@ -1,14 +1,15 @@
 import Axios from 'axios'
 
 const defaultState = {
-  plant: ''
+  plant: '',
+  URL: ''
 }
 
 //ACTION_TYPES
-const IDENTIFIED_PLANT = 'IDENTIFIED_PLANT'
+const REQUESTED_IDENTIFICAITON = 'REQUESTED_IDENTIFICATION'
 
 //ACTION CREATORS
-const requestedIdentification = plant => ({type: IDENTIFIED_PLANT, plant})
+const requestedIdentification = url => ({type: IDENTIFIED_PLANT, url})
 
 //THUNK CREATORS
 
@@ -32,8 +33,8 @@ export const requestIdentification = file => async dispatch => {
 //REDUCER
 const identifyReducer = (state = defaultState, action) => {
   switch (action.type) {
-    case IDENTIFIED_PLANT:
-      return action.plant
+    case REQUESTED_IDENTIFICAITON:
+      return {...state, URL: action.url}
     default:
       return state
   }
