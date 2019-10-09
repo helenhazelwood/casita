@@ -2,45 +2,65 @@
 
 const db = require('../server/db')
 const {User, Plant} = require('../server/db/models')
+const Axios = require('axios')
+
+const fetchPlants = async () => {
+  const res = await Axios.get('https://www.thesill.com/products.json', {
+    headers: {
+      'Content-type': 'appliation/json',
+      'cache-control': 'no-cache'
+    },
+    params: {
+      limit: 250
+    }
+  })
+  return res.data.products.filter(product => product.tags.includes('liveplant'))
+}
 
 async function seed() {
   await db.sync({force: true})
   console.log('db synced!')
+  const livePlants = await fetchPlants()
 
+  const plants = await Promise.all(
+    livePlants.map(plant => {
+      let petFriendly = false
+      let sunlight
+      let size
+      let name
+      if (plant.tags.includes('petfriendly')) {
+        petFriendly = true
+      }
+      if (plant.tags.includes('MEDIUM')) {
+        size = 'medium'
+      }
+      if (plant.tags.includes('SMALL' || 'MINI')) {
+        size = 'small'
+      }
+      if (plant.tags.includes('LARGE')) {
+        size = 'large'
+      }
+      if (plant.tags.includes('light: low-medium')) {
+        sunlight = 'indirect'
+      } else if (plant.tags.includes('lowlight')) {
+        sunlight = 'low'
+      } else if (plant.tags.includes('brightlight')) {
+        sunlight = 'bright'
+      }
+      Plant.create({
+        name: 'holder',
+        description: plant.body_html,
+        sunlight: sunlight,
+        size: size,
+        petFriendly: petFriendly
+      })
+      //STOPPED HERE
+    })
+  )
   const users = await Promise.all([
     User.create({email: 'cody@email.com', password: '123'}),
     User.create({email: 'murphy@email.com', password: '123'})
   ])
-
-  const plants = await Promise.all([
-    Plant.create({
-      name: 'Monstera',
-      sunlight: 'indirect',
-      soil: 'porous',
-      temperature: [65, 90],
-      humidity: 'high'
-    }),
-    Plant.create({
-      name: 'Pothos',
-      sunlight: 'indirect',
-      soil: 'dense',
-      temperature: [65, 80],
-      humidity: 'medium'
-    }),
-    Plant.create({
-      name: `Burro's Tail`,
-      sunlight: 'direct',
-      soil: 'porous',
-      temperature: [70, 115],
-      humidity: 'low'
-    })
-  ])
-  const monstera = await Plant.findByPk(1)
-  await monstera.setUser(1)
-  const pothos = await Plant.findByPk(2)
-  await pothos.setUser(1)
-  const burrosTail = await Plant.findByPk(3)
-  await burrosTail.setUser(2)
 
   console.log(`seeded ${users.length} users`)
   console.log(`seeded ${plants.length} plants`)

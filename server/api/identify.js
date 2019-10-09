@@ -11,7 +11,7 @@ router.post('/', (req, res, next) => {
     let imageBuffer = Buffer.from(file.data)
 
     let image = imageBuffer.toString('base64')
-
+    console.log(image)
     const customId = generateUUID()
     const callback = `/api/identify/result/${customId}`
 

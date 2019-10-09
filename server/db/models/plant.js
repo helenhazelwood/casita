@@ -9,6 +9,9 @@ const Plant = db.define('plant', {
       notEmpty: true
     }
   },
+  description: {
+    type: Sequelize.TEXT
+  },
   imageURL: {
     type: Sequelize.STRING,
     defaultValue:
@@ -18,24 +21,22 @@ const Plant = db.define('plant', {
     type: Sequelize.STRING,
     allowNull: false,
     validate: {
-      isIn: [['direct', 'indirect', 'low']]
+      isIn: [['bright', 'medium-bright', 'indirect', 'low']]
     }
   },
-  soil: {
+  size: {
     type: Sequelize.STRING,
     allowNull: false,
     validate: {
-      isIn: [['porous', 'dense']]
+      isIn: [['small', 'medium', 'big']]
     }
   },
   temperature: {
     type: Sequelize.RANGE(Sequelize.DECIMAL(4, 1))
   },
-  humidity: {
-    type: Sequelize.STRING,
-    validate: {
-      isIn: [['high', 'medium', 'low']]
-    }
+  petFriendly: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false
   }
 })
 
