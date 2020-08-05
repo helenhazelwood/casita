@@ -46,7 +46,7 @@
     "compression": "^1.7.3",
     "connect-session-sequelize": "^6.0.0",
     "express": "^4.17.1",
-    "express-fileupload": "^1.1.6-alpha.5",
+    "express-fileupload": "^1.1.9",
     "express-session": "^1.15.1",
     "history": "^4.9.0",
     "js-base64": "^2.5.1",
